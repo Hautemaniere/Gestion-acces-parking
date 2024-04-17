@@ -43,7 +43,7 @@
 <p><a href="indexModule.html"><input type="submit" value="Retour"></a></p>
 
 
-<h2>Vos demandes de véhicules :</h2>
+<h2>Toutes les demandes de véhicules dans la base de données :</h2>
 <table border="1">
     <tr>
         <th>Nom</th>

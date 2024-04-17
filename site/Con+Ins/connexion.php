@@ -81,7 +81,7 @@
               <form action="" method="post" class="form">
                   <input type="text" name="nom" placeholder="Nom" required>
                   <input type="password" name="mot_de_passe" placeholder="Mot de passe" required>
-                  <input type="submit" name="connexion" value="Envoyer">
+                  <input type="submit" name="connexion" value="Se connecter">
                   <?php if (isset($error_message)) { ?>
                       <p class="error-message"><?php echo $error_message; ?></p>
                   <?php } ?>

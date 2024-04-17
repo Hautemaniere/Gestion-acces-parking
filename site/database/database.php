@@ -1,3 +1,6 @@
+<!-- database.php -->
+
+
 <?php
 $servername = '192.168.65.167';
 $username = 'rooted';

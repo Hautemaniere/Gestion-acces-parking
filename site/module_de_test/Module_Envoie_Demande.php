@@ -76,7 +76,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Envoyer une demande</title>
+    <title>Module de test Envoie de demande</title>
 </head>
 <body>
 <p><a href="indexModule.html"><input type="submit" value="Retour"></a></p>

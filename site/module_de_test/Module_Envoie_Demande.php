@@ -1,6 +1,3 @@
-<!-- Module_Envoie_Demande.php -->
-
-
 <?php
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
@@ -56,6 +53,9 @@
     // Récupérer les demandes de véhicules
     $vehicule_demandes = getVehicleDemands();
 
+    // Définir une variable pour stocker le message à afficher
+    $message = '';
+
     // Gérer l'envoi de la demande lorsque le bouton est cliqué
     if(isset($_POST['submit'])) {
         // Générer une plaque d'immatriculation aléatoire
@@ -68,9 +68,8 @@
         $stmt = $pdo->prepare($query);
         $stmt->execute();
 
-        // Redirection après l'insertion (à adapter selon vos besoins)
-        header("Location: Module_Envoie_Demande.php");
-        exit();
+        // Mettre à jour le message
+        $message = "La demande a été envoyée avec succès.";
     }
 ?>
 
@@ -86,31 +85,15 @@
 
 <h1>Envoyer une demande pré-remplie</h1>
 
+<!-- Ajouter du code HTML pour afficher le message -->
+<?php if (!empty($message)): ?>
+    <p><?php echo $message; ?></p>
+<?php endif; ?>
+
+<!-- Formulaire d'envoi de demande -->
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <input type="submit" name="submit" value="Envoyer une demande">
 </form>
-
-<h2>Vos demandes de véhicules :</h2>
-<table border="1">
-    <tr>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Mail</th>
-        <th>Statut</th>
-        <th>Immatriculation</th>
-        <th>Date</th>
-    </tr>
-    <?php foreach ($vehicule_demandes as $demande) : ?>
-        <tr>
-            <td><?php echo htmlspecialchars($demande['nom']); ?></td>
-            <td><?php echo htmlspecialchars($demande['prenom']); ?></td>
-            <td><?php echo htmlspecialchars($demande['mail']); ?></td>
-            <td><?php echo htmlspecialchars($demande['statut']); ?></td>
-            <td><?php echo htmlspecialchars($demande['immatriculation']); ?></td>
-            <td><?php echo htmlspecialchars($demande['date']); ?></td>
-        </tr>
-    <?php endforeach; ?>
-</table>
 
 </body>
 </html>

@@ -41,7 +41,6 @@ $vehicule_demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <h1>Bienvenue <?php echo $user->getLogin(); ?> sur votre compte personnel</h1>
     <p><strong>Nom d'utilisateur :</strong> <?php echo $user->getLogin(); ?></p>
     <p><strong>Email :</strong> <?php echo $user->getMail(); ?></p>
-    <p><strong>Type :</strong> <?php echo $user->getType(); ?></p>
 
     <?php if ($demande_count < 3) : ?>
         <p>Faire votre <a href="../demande/maDemande.php">demande.</a></p>

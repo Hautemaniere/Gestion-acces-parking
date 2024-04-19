@@ -17,10 +17,17 @@ if (!isset($_SESSION['user'])) {
 $user = $_SESSION['user'];
 
 // Récupérer les demandes de véhicules de l'utilisateur connecté
+$stmt = $pdo->prepare("SELECT COUNT(*) AS demande_count FROM `Demande_Vehicule` WHERE `iduser`=:iduser");
+$stmt->bindParam(':iduser', $user->getId());
+$stmt->execute();
+$demande_count = $stmt->fetch(PDO::FETCH_ASSOC)['demande_count'];
+
+// Récupérer les demandes de véhicules de l'utilisateur connecté
 $stmt = $pdo->prepare("SELECT * FROM `Demande_Vehicule` WHERE `iduser`=:iduser");
 $stmt->bindParam(':iduser', $user->getId());
 $stmt->execute();
 $vehicule_demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +43,11 @@ $vehicule_demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <p><strong>Email :</strong> <?php echo $user->getMail(); ?></p>
     <p><strong>Type :</strong> <?php echo $user->getType(); ?></p>
 
-    <p>Faire votre <a href="../demande/maDemande.php">demande.</a></p>
+    <?php if ($demande_count < 3) : ?>
+        <p>Faire votre <a href="../demande/maDemande.php">demande.</a></p>
+    <?php else: ?>
+        <p>Vous avez déjà effectué trois demandes.</p>
+    <?php endif; ?>
 
     <h2>Vos demandes de véhicules :</h2>
     <p><table border="1">

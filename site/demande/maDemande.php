@@ -7,6 +7,7 @@
     error_reporting(E_ALL);
 
 require_once '../classe/user.php';
+require_once '../classe/demande.php'; // Inclure la classe DemandeVehicule
 require_once '../database/database.php';
 
 session_start();
@@ -35,31 +36,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $immatriculation = $_POST['immatriculation'];
     // Traitement de l'image - vous devez gérer l'upload d'image
     $image = file_get_contents ($_FILES['image']['tmp_name']);
-    $status = "Traitement en cours";
-    // Récupérer l'id de l'utilisateur connecté
-    $id_user = $user->getId();
-    // Date actuelle
-    $date = date('Y-m-d H:i:s');
+    $status = $_POST['status']; // Utiliser le statut provenant du formulaire
+    $id_user = $_POST['id_user']; // Utiliser l'ID utilisateur provenant du formulaire
+    $date = $_POST['date']; // Utiliser la date provenant du formulaire
 
-    // Préparation de la requête SQL
-    $stmt = $pdo->prepare("INSERT INTO Demande_Vehicule (nom, prenom, mail, cartegrise, statut, immatriculation, iduser, date) 
+    // Créer un objet DemandeVehicule avec les données du formulaire
+    $demandeVehicule = new DemandeVehicule($nom, $prenom, $email, $immatriculation, $image, $status, $id_user, $date);
+
+    // Insérer la demande de véhicule dans la base de données (à adapter selon votre structure de base de données)
+    // Supposons que $pdo est votre connexion à la base de données
+    $pdo->beginTransaction();
+    try {
+        $stmt = $pdo->prepare("INSERT INTO Demande_Vehicule (nom, prenom, mail, cartegrise, statut, immatriculation, iduser, date) 
                             VALUES (:nom, :prenom, :email, :cartegrise, :statut, :immatriculation, :iduser, :date)");
-    // Liaison des paramètres de la requête
-    $stmt->bindParam(':nom', $nom);
-    $stmt->bindParam(':prenom', $prenom);
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':cartegrise', $image); // Changer pour correspondre à votre base de données
-    $stmt->bindParam(':statut', $status);
-    $stmt->bindParam(':immatriculation', $immatriculation);
-    $stmt->bindParam(':iduser', $id_user);
-    $stmt->bindParam(':date', $date);
+        $stmt->execute([
+            ':nom' => $demandeVehicule->getNom(),
+            ':prenom' => $demandeVehicule->getPrenom(),
+            ':email' => $demandeVehicule->getEmail(),
+            ':cartegrise' => $demandeVehicule->getImage(),
+            ':statut' => $demandeVehicule->getStatut(),
+            ':immatriculation' => $demandeVehicule->getImmatriculation(),
+            ':iduser' => $demandeVehicule->getIdUser(),
+            ':date' => $demandeVehicule->getDate()
+        ]);
+        $pdo->commit();
 
-    // Exécution de la requête
-    $stmt->execute();
-
-    // Redirection après l'insertion (à adapter selon vos besoins)
-    header("Location: ../Compte/maPage.php");
-    exit();
+        // Redirection après l'insertion (à adapter selon vos besoins)
+        header("Location: ../Compte/maPage.php");
+        exit();
+    } catch (Exception $e) {
+        $pdo->rollBack();
+        echo "Erreur : " . $e->getMessage();
+    }
 }
 ?>
 

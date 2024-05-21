@@ -7,7 +7,7 @@
     error_reporting(E_ALL);
 
 require_once '../classe/user.php';
-require_once '../classe/demande.php'; // Inclure la classe DemandeVehicule
+require_once '../classe/demande.php'; // Inclure la classe Vehicule
 require_once '../database/database.php';
 
 session_start();

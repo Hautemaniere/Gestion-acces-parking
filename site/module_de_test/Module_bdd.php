@@ -1,7 +1,7 @@
 <!-- Module_bdd.php -->
 
 
-<p><a href="indexModule.html"><input type="submit" value="Retour"></a></p>
+<p><a href="indexModule.html"><input type="submit" value="Retour a la page d'index"></a></p>
 
 
 

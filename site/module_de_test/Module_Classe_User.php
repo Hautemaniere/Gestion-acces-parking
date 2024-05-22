@@ -1,3 +1,5 @@
+<p><a href="indexModule.html"><input type="submit" value="Retour a la page d'index"></a></p>
+
 <?php
 require_once '../classe/user.php';
 

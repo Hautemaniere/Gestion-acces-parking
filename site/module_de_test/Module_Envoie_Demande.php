@@ -101,7 +101,7 @@ if(isset($_POST['submit'])) {
     <title>Module de test Envoie de demande</title>
 </head>
 <body>
-<p><a href="indexModule.html"><input type="submit" value="Retour"></a></p>
+<p><a href="indexModule.html"><input type="submit" value="Retour a la page d'index"></a></p>
 
 <h1>Envoyer une demande pré-remplie</h1>
 

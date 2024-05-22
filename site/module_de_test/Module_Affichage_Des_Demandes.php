@@ -40,7 +40,7 @@
     <title>Module de test Envoie de demande</title>
 </head>
 <body>
-<p><a href="indexModule.html"><input type="submit" value="Retour"></a></p>
+<p><a href="indexModule.html"><input type="submit" value="Retour a la page d'index"></a></p>
 
 
 <h2>Toutes les demandes de véhicules dans la base de données :</h2>

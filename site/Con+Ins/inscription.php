@@ -62,6 +62,8 @@ if (isset($_POST['inscription'])) {
                 <ul class="navbar-nav ms-auto my-2 my-lg-0">
                     <li class="nav-item"><a class="nav-link" href="../index.html">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href="connexion.php">Connexion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#about">A propos</a></li>
+
                 </ul>
             </div>
         </div>

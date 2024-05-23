@@ -40,11 +40,13 @@ if (!empty($demande_ids)) {
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ma page</title>
 </head>
+
 <body>
     <h1>Bienvenue <?php echo htmlspecialchars($user->getLogin(), ENT_QUOTES, 'UTF-8'); ?> sur votre compte personnel</h1>
     <p><strong>Nom d'utilisateur :</strong> <?php echo htmlspecialchars($user->getLogin(), ENT_QUOTES, 'UTF-8'); ?></p>
@@ -57,11 +59,12 @@ if (!empty($demande_ids)) {
 
     <?php if ($demande_count < 3) : ?>
         <p>Faire votre <a href="../demande/maDemande.php">demande.</a></p>
-    <?php else: ?>
+    <?php else : ?>
         <p>Vous avez déjà effectué trois demandes.</p>
     <?php endif; ?>
 
     <h2>Vos demandes de véhicules :</h2>
+    <p>
     <table border="1">
         <tr>
             <th>Nom</th>
@@ -84,23 +87,25 @@ if (!empty($demande_ids)) {
             </tr>
         <?php endforeach; ?>
     </table>
+    </p>
 
     <!-- Lien pour se déconnecter -->
     <form action="" method="post">
         <input type="submit" name="deconnexion" value="Se déconnecter">
     </form>
 
-<?php
-// Gestion de la déconnexion
-if (isset($_POST['deconnexion'])) {
-    // Détruire toutes les données de session
-    session_unset();
-    session_destroy();
+    <?php
+    // Gestion de la déconnexion
+    if (isset($_POST['deconnexion'])) {
+        // Détruire toutes les données de session
+        session_unset();
+        session_destroy();
 
-    // Rediriger vers la page de connexion
-    header("Location: ../Con+Ins/connexion.php");
-    exit();
-}
-?>
+        // Rediriger vers la page de connexion
+        header("Location: ../Con+Ins/connexion.php");
+        exit();
+    }
+    ?>
 </body>
+
 </html>

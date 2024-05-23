@@ -1,6 +1,5 @@
 <!-- maPage.php -->
 
-
 <?php
 require_once("../database/database.php");
 require_once("../classe/user.php");
@@ -22,6 +21,21 @@ $stmt->bindParam(':iduser', $user->getId());
 $stmt->execute();
 $vehicule_demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// Récupérer les messages liés aux demandes de véhicules
+$demande_ids = array_column($vehicule_demandes, 'id'); // Récupérer les IDs des demandes
+if (!empty($demande_ids)) {
+    $placeholders = implode(',', array_fill(0, count($demande_ids), '?'));
+    $stmt = $pdo->prepare("SELECT * FROM `Message` WHERE `id_demande` IN ($placeholders)");
+    $stmt->execute($demande_ids);
+    $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Associer les messages aux demandes
+    $messages_by_demande = [];
+    foreach ($messages as $message) {
+        $messages_by_demande[$message['id_demande']] = $message['contenu'];
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -32,9 +46,14 @@ $vehicule_demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Ma page</title>
 </head>
 <body>
-    <h1>Bienvenue <?php echo $user->getLogin(); ?> sur votre compte personnel</h1>
-    <p><strong>Nom d'utilisateur :</strong> <?php echo $user->getLogin(); ?></p>
-    <p><strong>Email :</strong> <?php echo $user->getMail(); ?></p>
+    <h1>Bienvenue <?php echo htmlspecialchars($user->getLogin(), ENT_QUOTES, 'UTF-8'); ?> sur votre compte personnel</h1>
+    <p><strong>Nom d'utilisateur :</strong> <?php echo htmlspecialchars($user->getLogin(), ENT_QUOTES, 'UTF-8'); ?></p>
+    <p><strong>Email :</strong> <?php echo htmlspecialchars($user->getMail(), ENT_QUOTES, 'UTF-8'); ?></p>
+
+    <?php
+    // Compter le nombre de demandes
+    $demande_count = count($vehicule_demandes);
+    ?>
 
     <?php if ($demande_count < 3) : ?>
         <p>Faire votre <a href="../demande/maDemande.php">demande.</a></p>
@@ -43,7 +62,7 @@ $vehicule_demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php endif; ?>
 
     <h2>Vos demandes de véhicules :</h2>
-    <p><table border="1">
+    <table border="1">
         <tr>
             <th>Nom</th>
             <th>Prénom</th>
@@ -55,17 +74,16 @@ $vehicule_demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </tr>
         <?php foreach ($vehicule_demandes as $demande) : ?>
             <tr>
-                <td><?php echo $demande['nom']; ?></td>
-                <td><?php echo $demande['prenom']; ?></td>
-                <td><?php echo $demande['mail']; ?></td>
-                <td><?php echo $demande['immatriculation']; ?></td>
-                <td><?php echo $demande['date']; ?></td>
-                <td><?php echo $demande['statut']; ?></td>
-                <td> <!-- contiendra le message de l'admin --> </td>
-
+                <td><?php echo htmlspecialchars($demande['nom'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlspecialchars($demande['prenom'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlspecialchars($demande['mail'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlspecialchars($demande['immatriculation'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlspecialchars($demande['date'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlspecialchars($demande['statut'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo isset($messages_by_demande[$demande['id']]) ? htmlspecialchars($messages_by_demande[$demande['id']], ENT_QUOTES, 'UTF-8') : ''; ?></td>
             </tr>
         <?php endforeach; ?>
-    </table></p>
+    </table>
 
     <!-- Lien pour se déconnecter -->
     <form action="" method="post">
@@ -78,7 +96,6 @@ if (isset($_POST['deconnexion'])) {
     // Détruire toutes les données de session
     session_unset();
     session_destroy();
-
 
     // Rediriger vers la page de connexion
     header("Location: ../Con+Ins/connexion.php");

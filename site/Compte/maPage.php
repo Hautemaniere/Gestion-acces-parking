@@ -48,18 +48,20 @@ $vehicule_demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <th>Nom</th>
             <th>Prénom</th>
             <th>Mail</th>
-            <th>Statut</th>
             <th>Immatriculation</th>
             <th>Date</th>
+            <th>Statut</th>
+            <th>Message</th>
         </tr>
         <?php foreach ($vehicule_demandes as $demande) : ?>
             <tr>
                 <td><?php echo $demande['nom']; ?></td>
                 <td><?php echo $demande['prenom']; ?></td>
                 <td><?php echo $demande['mail']; ?></td>
-                <td><?php echo $demande['statut']; ?></td>
                 <td><?php echo $demande['immatriculation']; ?></td>
                 <td><?php echo $demande['date']; ?></td>
+                <td><?php echo $demande['statut']; ?></td>
+                <td> <!-- contiendra le message de l'admin --> </td>
 
             </tr>
         <?php endforeach; ?>

@@ -17,12 +17,6 @@ if (!isset($_SESSION['user'])) {
 $user = $_SESSION['user'];
 
 // Récupérer les demandes de véhicules de l'utilisateur connecté
-$stmt = $pdo->prepare("SELECT COUNT(*) AS demande_count FROM `Demande_Vehicule` WHERE `iduser`=:iduser");
-$stmt->bindParam(':iduser', $user->getId());
-$stmt->execute();
-$demande_count = $stmt->fetch(PDO::FETCH_ASSOC)['demande_count'];
-
-// Récupérer les demandes de véhicules de l'utilisateur connecté
 $stmt = $pdo->prepare("SELECT * FROM `Demande_Vehicule` WHERE `iduser`=:iduser");
 $stmt->bindParam(':iduser', $user->getId());
 $stmt->execute();
@@ -66,6 +60,7 @@ $vehicule_demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td><?php echo $demande['statut']; ?></td>
                 <td><?php echo $demande['immatriculation']; ?></td>
                 <td><?php echo $demande['date']; ?></td>
+
             </tr>
         <?php endforeach; ?>
     </table></p>

@@ -86,10 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
     <label for="nom">Nom:</label><br>
-    <input type="text" id="nom" name="nom" placeholder="ex : Gabriel" required><br><br>
+    <input type="text" id="nom" name="nom" placeholder="ex : Martin" required ><br><br>
 
     <label for="prenom">Prénom:</label><br>
-    <input type="text" id="prenom" name="prenom" placeholder="ex : Martin" required><br><br>
+    <input type="text" id="prenom" name="prenom" placeholder="ex : Gabriel" required ><br><br>
 
     <label for="email">Email:</label><br>
     <input type="email" id="email" name="email" placeholder="ex : user@gmail.com" required value="<?php echo $user->getMail(); ?>"><br><br>

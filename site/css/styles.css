@@ -3610,6 +3610,32 @@ textarea.form-control-lg {
   border-top-right-radius: 0;
 }
 
+.Contenant {
+  position: relative; /* Assure que les éléments internes utilisent ce conteneur comme référence */
+  background: rgba(255, 255, 255, 0.2); /* Couleur blanche avec transparence */
+  backdrop-filter: blur(10px); /* Applique le flou */
+  -webkit-backdrop-filter: blur(10px); /* Support pour les anciens navigateurs */
+  padding: 20px; /* Espace interne, ajuste selon tes besoins */
+  border-radius: 10px; /* Coins arrondis, ajuste selon tes besoins */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ajoute une ombre douce pour un effet plus joli */
+}
+
+.tableau {
+  border-collapse: collapse; /* Assure que les bordures sont fusionnées */
+  width: 100%; /* Ajuste la largeur selon tes besoins */
+}
+
+.tableau th, .tableau td {
+  border: 1px solid black; /* Bordure noire pour les cellules */
+  padding: 8px; /* Ajoute de l'espace à l'intérieur des cellules */
+  text-align: left; /* Aligne le texte à gauche */
+}
+
+.tableau th {
+  background-color: #f2f2f2; /* Fond gris clair pour les en-têtes, optionnel */
+}
+
+
 .nav {
   --bs-nav-link-padding-x: 1rem;
   --bs-nav-link-padding-y: 0.5rem;

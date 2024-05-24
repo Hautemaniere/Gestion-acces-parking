@@ -49,8 +49,8 @@ if (!empty($demande_ids)) {
 
 <body>
     <h1>Bienvenue <?php echo htmlspecialchars($user->getLogin(), ENT_QUOTES, 'UTF-8'); ?> sur votre compte personnel</h1>
-    <p><strong>Nom d'utilisateur :</strong> <?php echo htmlspecialchars($user->getLogin(), ENT_QUOTES, 'UTF-8'); ?></p>
-    <p><strong>Email :</strong> <?php echo htmlspecialchars($user->getMail(), ENT_QUOTES, 'UTF-8'); ?></p>
+    <p><strong>Votre nom d'utilisateur :</strong> <?php echo htmlspecialchars($user->getLogin(), ENT_QUOTES, 'UTF-8'); ?></p>
+    <p><strong>Votre adresse email :</strong> <?php echo htmlspecialchars($user->getMail(), ENT_QUOTES, 'UTF-8'); ?></p>
 
     <?php
     // Compter le nombre de demandes

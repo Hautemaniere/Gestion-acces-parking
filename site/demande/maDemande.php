@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <input type="text" id="prenom" name="prenom" placeholder="ex : Martin" required><br><br>
 
     <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" placeholder="ex : user@gmail.com" required><br><br>
+    <input type="email" id="email" name="email" placeholder="ex : user@gmail.com" required value="<?php echo $user->getMail(); ?>"><br><br>
 
     <label for="image">Image (JPG uniquement):</label><br>
     <input type="file" id="image" name="image" accept=".jpg" required><br><br>

@@ -2,9 +2,9 @@
 
 
 <?php
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 require_once '../classe/user.php';
 require_once '../classe/demande.php'; // Inclure la classe Vehicule
@@ -13,9 +13,10 @@ require_once '../database/database.php';
 session_start();
 
 // Fonction pour récupérer l'utilisateur connecté
-function getLoggedInUser() {
+function getLoggedInUser()
+{
     // Vérifier si l'utilisateur est connecté
-    if(isset($_SESSION['user'])) {
+    if (isset($_SESSION['user'])) {
         return $_SESSION['user'];
     } else {
         // Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
@@ -35,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $immatriculation = $_POST['immatriculation'];
     // Traitement de l'image - vous devez gérer l'upload d'image
-    $image = file_get_contents ($_FILES['image']['tmp_name']);
+    $image = file_get_contents($_FILES['image']['tmp_name']);
     $status = $_POST['status']; // Utiliser le statut provenant du formulaire
     $id_user = $_POST['id_user']; // Utiliser l'ID utilisateur provenant du formulaire
     $date = $_POST['date']; // Utiliser la date provenant du formulaire
@@ -86,8 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic"
-        rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
     <!-- SimpleLightbox plugin CSS-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -99,9 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="../index.html">Barriere</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto my-2 my-lg-0">
                     <li class="nav-item"><a class="nav-link" href="../index.html">Accueil</a></li>
@@ -115,39 +113,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <header class="masthead">
         <div class="container px-4 px-lg-5 h-100">
             <div class="Contenant">
-            <h1>Formulaire de demande de véhicule</h1>
+                <h1>Formulaire de demande de véhicule</h1>
 
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-    <label for="nom">Nom:</label><br>
-    <input type="text" id="nom" name="nom" placeholder="ex : Martin" required ><br><br>
+                <p><a href="../Compte/maPage.php"><input type="submit" value="Retour"></a></p>
 
-    <label for="prenom">Prénom:</label><br>
-    <input type="text" id="prenom" name="prenom" placeholder="ex : Gabriel" required ><br><br>
 
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" placeholder="ex : user@gmail.com" required value="<?php echo $user->getMail(); ?>"><br><br>
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+                    <label for="nom">Nom:</label><br>
+                    <input type="text" id="nom" name="nom" placeholder="ex : Martin" required><br><br>
 
-    <label for="image">Image (JPG uniquement):</label><br>
-    <input type="file" id="image" name="image" accept=".jpg" required><br><br>
+                    <label for="prenom">Prénom:</label><br>
+                    <input type="text" id="prenom" name="prenom" placeholder="ex : Gabriel" required><br><br>
 
-    <label for="immatriculation">Immatriculation:</label><br>
-    <input type="text" id="immatriculation" name="immatriculation" placeholder="ex : AA-000-AA" required><br><br>
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" placeholder="ex : user@gmail.com" required value="<?php echo $user->getMail(); ?>"><br><br>
 
-    <!-- Champ de statut déjà pré-rempli -->
-    <input type="hidden" name="status" value="Traitement en cours">
+                    <label for="image">Image (JPG uniquement):</label><br>
+                    <input type="file" id="image" name="image" accept=".jpg" required><br><br>
 
-    <!-- Champ de l'ID utilisateur déjà pré-rempli -->
-    <input type="hidden" name="id_user" value="<?php echo $user->getId(); ?>">
+                    <label for="immatriculation">Immatriculation:</label><br>
+                    <input type="text" id="immatriculation" name="immatriculation" placeholder="ex : AA-000-AA" required><br><br>
 
-    <!-- Champ de date pré-rempli -->
-    <input type="hidden" name="date" value="<?php echo date('Y-m-d H:i:s'); ?>">
+                    <!-- Champ de statut déjà pré-rempli -->
+                    <input type="hidden" name="status" value="Traitement en cours">
 
-    <input type="submit" value="Envoyer">
-</form>
+                    <!-- Champ de l'ID utilisateur déjà pré-rempli -->
+                    <input type="hidden" name="id_user" value="<?php echo $user->getId(); ?>">
+
+                    <!-- Champ de date pré-rempli -->
+                    <input type="hidden" name="date" value="<?php echo date('Y-m-d H:i:s'); ?>">
+
+                    <input type="submit" value="Envoyer">
+                </form>
             </div>
         </div>
     </header>
-    
+
     <!-- Footer-->
     <footer class="bg-light py-5">
         <div class="container px-4 px-lg-5">

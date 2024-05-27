@@ -1,12 +1,10 @@
 <!-- inscription.php -->
 
-
 <?php
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
 
 require_once("../database/database.php");
 require_once("../classe/user.php");
@@ -18,13 +16,24 @@ if (isset($_POST['inscription'])) {
     $type = $_POST['type']; // Assurez-vous de récupérer le type d'utilisateur correctement
     $mail = $_POST['mail'];
 
-    // Insérer un nouvel utilisateur dans la base de données
-    $stmt = $pdo->prepare('INSERT INTO `User` (`login`, `password`, `type`, `mail`) VALUES (?, ?, ?, ?)');
-    $stmt->execute([$login, $password, 'demandeur', $mail]);
+    // Vérifier si l'utilisateur est déjà inscrit
+    $stmt = $pdo->prepare('SELECT * FROM `User` WHERE `login` = ? OR `mail` = ?');
+    $stmt->execute([$login, $mail]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Rediriger vers la page de connexion ou afficher un message de succès
-    header("Location: connexion.php");
-    exit();
+    if ($user) {
+        // Utilisateur déjà inscrit, rediriger vers la page de connexion avec un message
+        header("Location: connexion.php?message=Utilisateur déjà inscrit. Veuillez vous connecter.");
+        exit();
+    } else {
+        // Insérer un nouvel utilisateur dans la base de données
+        $stmt = $pdo->prepare('INSERT INTO `User` (`login`, `password`, `type`, `mail`) VALUES (?, ?, ?, ?)');
+        $stmt->execute([$login, $password, 'demandeur', $mail]);
+
+        // Rediriger vers la page de connexion ou afficher un message de succès
+        header("Location: connexion.php?message=Inscription réussie. Veuillez vous connecter.");
+        exit();
+    }
 }
 ?>
 
@@ -49,7 +58,6 @@ if (isset($_POST['inscription'])) {
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="../css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="../styleFormulaire/styles.css">
-
 </head>
 
 <body id="page-top">
@@ -72,10 +80,10 @@ if (isset($_POST['inscription'])) {
         <div class="form-container">
             <h1 class="form-title">Inscrivez-vous</h1>
             <form action="" method="post" class="form">
-                <input type="text" name="login" placeholder="Nom d utilisateur" required>
+                <input type="text" name="login" placeholder="Nom d'utilisateur" required>
                 <input type="password" name="password" placeholder="Mot de passe" required>
                 <input type="email" name="mail" placeholder="Adresse e-mail" required>
-                <input type="submit" name="inscription" value="S inscrire">
+                <input type="submit" name="inscription" value="S'inscrire">
             </form>
             <div class="form-separator">
                 <strong>OU</strong>
@@ -86,11 +94,7 @@ if (isset($_POST['inscription'])) {
                 <a href="connexion.php">Connectez-vous.</a>
             </div>
         </div>
-
-
-        </div>
     </header>
-
 
     <!-- Footer-->
     <!-- Bootstrap core JS-->
@@ -99,10 +103,7 @@ if (isset($_POST['inscription'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
     <!-- Core theme JS-->
     <script src="../js/scripts.js"></script>
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!-- * *                               SB Forms JS                               * *-->
-    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- SB Forms JS-->
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 

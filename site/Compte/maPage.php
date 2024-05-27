@@ -57,7 +57,7 @@ if (!empty($demande_ids)) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Ma page</title>
+    <title>Page personnel de demande d'accès à La Providence Amiens</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap Icons-->
@@ -81,7 +81,6 @@ if (!empty($demande_ids)) {
                 <ul class="navbar-nav ms-auto my-2 my-lg-0">
                     <li class="nav-item"><a class="nav-link" href="../index.html">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href="../index.html#about">A propos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../Con+Ins/inscription.php">Inscription</a></li>
                 </ul>
             </div>
         </div>
@@ -90,7 +89,7 @@ if (!empty($demande_ids)) {
     <header class="masthead">
         <div class="container px-4 px-lg-5 h-100">
             <div class="Contenant">
-                <h1>Bienvenue <?php echo htmlspecialchars($user->getLogin(), ENT_QUOTES, 'UTF-8'); ?> sur votre compte personnel</h1>
+                <h1>Bienvenue sur votre compte personnel</h1>
                 <p><strong>Votre nom d'utilisateur :</strong> <?php echo htmlspecialchars($user->getLogin(), ENT_QUOTES, 'UTF-8'); ?></p>
                 <p><strong>Votre adresse email :</strong> <?php echo htmlspecialchars($user->getMail(), ENT_QUOTES, 'UTF-8'); ?></p>
 

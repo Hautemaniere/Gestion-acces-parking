@@ -36,7 +36,7 @@ if (isset($_POST['inscription'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Creative - Start Bootstrap Theme</title>
+    <title>Demande d'accès à La Providence Amiens</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap Icons-->
@@ -61,9 +61,8 @@ if (isset($_POST['inscription'])) {
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto my-2 my-lg-0">
                     <li class="nav-item"><a class="nav-link" href="../index.html">Accueil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="connexion.php">Connexion</a></li>
                     <li class="nav-item"><a class="nav-link" href="../index.html#about">A propos</a></li>
-
+                    <li class="nav-item"><a class="nav-link" href="connexion.php">Connexion</a></li>
                 </ul>
             </div>
         </div>

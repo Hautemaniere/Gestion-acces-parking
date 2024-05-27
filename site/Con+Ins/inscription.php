@@ -22,8 +22,10 @@ if (isset($_POST['inscription'])) {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
-        // Utilisateur déjà inscrit, rediriger vers la page de connexion avec un message
-        header("Location: connexion.php?message=Utilisateur déjà inscrit. Veuillez vous connecter.");
+        // Utilisateur déjà inscrit, rediriger vers la page de connexion avec un message et pré-remplir les champs
+        $encodedLogin = urlencode($login);
+        $encodedPassword = urlencode($password);
+        header("Location: connexion.php?message=Utilisateur déjà inscrit. Veuillez vous connecter.&login=$encodedLogin&password=$encodedPassword");
         exit();
     } else {
         // Insérer un nouvel utilisateur dans la base de données

@@ -6,10 +6,21 @@ require_once("../classe/user.php");
 
 session_start();
 
+// Gestion de la déconnexion
+if (isset($_POST['deconnexion'])) {
+    // Détruire toutes les données de session
+    session_unset();
+    session_destroy();
+
+    // Rediriger vers la page de connexion
+    header("Location: ../Con+Ins/connexion.php");
+    exit();
+}
+
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user'])) {
     // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-    header("Location: connexion.php");
+    header("Location: ../Con+Ins/connexion.php");
     exit();
 }
 
@@ -121,22 +132,9 @@ if (!empty($demande_ids)) {
                 </p>
 
                 <!-- Lien pour se déconnecter -->
-                <form action="" method="post">
+                <form action="maPage.php" method="post">
                     <input type="submit" name="deconnexion" value="Se déconnecter">
                 </form>
-
-                <?php
-                // Gestion de la déconnexion
-                if (isset($_POST['deconnexion'])) {
-                    // Détruire toutes les données de session
-                    session_unset();
-                    session_destroy();
-
-                    // Rediriger vers la page de connexion
-                    header("Location: ../Con+Ins/connexion.php");
-                    exit();
-                }
-                ?>
             </div>
         </div>
     </header>

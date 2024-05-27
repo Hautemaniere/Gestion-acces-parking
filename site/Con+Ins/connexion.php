@@ -47,7 +47,7 @@ $prepassword = isset($_GET['password']) ? htmlspecialchars($_GET['password']) : 
     <meta name="author" content="" />
     <title>Demande d'accès à La Providence Amiens</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
     <!-- Bootstrap Icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Google fonts-->

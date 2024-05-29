@@ -34,7 +34,6 @@ if (isset($_POST['connexion'])) {
 
 // Récupérer les informations de connexion pré-remplies
 $prelogin = isset($_GET['login']) ? htmlspecialchars($_GET['login']) : '';
-$prepassword = isset($_GET['password']) ? htmlspecialchars($_GET['password']) : '';
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +80,7 @@ $prepassword = isset($_GET['password']) ? htmlspecialchars($_GET['password']) : 
             <h1 class="form-title">Connectez-vous</h1>
             <form action="" method="post" class="form">
                 <input type="text" name="nom" placeholder="Nom" value="<?php echo $prelogin; ?>" required>
-                <input type="password" name="mot_de_passe" placeholder="Mot de passe" value="<?php echo $prepassword; ?>" required>
+                <input type="password" name="mot_de_passe" placeholder="Mot de passe" required>
                 <input type="submit" name="connexion" value="Se connecter">
                 <?php if (isset($error_message)) { ?>
                     <p class="error-message"><?php echo $error_message; ?></p>

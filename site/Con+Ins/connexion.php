@@ -20,7 +20,6 @@ if (isset($_POST['connexion'])) {
 
     if ($user) {
         // Utilisateur trouvé, connectez-vous ou effectuez d'autres actions nécessaires
-        // Par exemple, démarrer une session
         session_start();
         $_SESSION['user'] = new User($user['id'], $user['login'], $user['password'], $user['type'], $user['mail']);
         // Rediriger vers une page d'accueil ou autre
@@ -81,6 +80,12 @@ $prelogin = isset($_GET['login']) ? htmlspecialchars($_GET['login']) : '';
             <form action="" method="post" class="form">
                 <input type="text" name="nom" placeholder="Nom" value="<?php echo $prelogin; ?>" required>
                 <input type="password" name="mot_de_passe" placeholder="Mot de passe" required>
+
+                <div class="signin-message">
+                    <span>Mot de passe</span>
+                    <a href="mdpLost.php">oublié.</a>
+                </div>
+                
                 <input type="submit" name="connexion" value="Se connecter">
                 <?php if (isset($error_message)) { ?>
                     <p class="error-message"><?php echo $error_message; ?></p>

@@ -45,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $demandeVehicule = new DemandeVehicule($nom, $prenom, $email, $immatriculation, $image, $status, $id_user, $date);
 
     // Insérer la demande de véhicule dans la base de données (à adapter selon votre structure de base de données)
-    // Supposons que $pdo est votre connexion à la base de données
     $pdo->beginTransaction();
     try {
         $stmt = $pdo->prepare("INSERT INTO Demande_Vehicule (nom, prenom, mail, cartegrise, statut, immatriculation, iduser, date) 
@@ -62,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]);
         $pdo->commit();
 
-        // Redirection après l'insertion (à adapter selon vos besoins)
+        // Redirection après l'insertion
         header("Location: ../Compte/maPage.php");
         exit();
     } catch (Exception $e) {

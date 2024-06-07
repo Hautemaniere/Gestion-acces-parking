@@ -11,7 +11,7 @@ require_once '../classe/demande.php';  // Assurez-vous que le chemin est correct
 // Fonction pour récupérer l'utilisateur connecté (à adapter selon votre système de connexion)
 function getLoggedInUser() {
     // Exemple de récupération d'utilisateur fictif pour démonstration
-    return new User(28, 'Gabriel', 'password', 'Traitement en cours', 'gabmar@gmail.com');
+    return new User(28, 'Gabriel', 'password', 'Traitement en cours', 'burguetlucas@gmail.com');
 }
 
 // Fonction pour générer une plaque d'immatriculation aléatoire au format français
@@ -67,7 +67,7 @@ if(isset($_POST['submit'])) {
         $user->getLogin(),    // Utiliser le login comme prénom (vous pouvez ajuster selon vos besoins)
         $user->getMail(),
         $immatriculation,
-        'image.jpg', // Vous pouvez adapter cette partie pour gérer le téléchargement d'images
+        '../assets/bg-masthead.jpg', // Vous pouvez adapter cette partie pour gérer le téléchargement d'images
         'Traitement en cours',
         $user->getId(),
         date('Y-m-d H:i:s') // Format de date pour l'insertion dans la base de données

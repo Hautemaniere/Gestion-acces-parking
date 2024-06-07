@@ -1,7 +1,6 @@
-<!-- inscription.php -->
+<!-- connexion.php -->
 
 <?php
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -9,34 +8,7 @@ error_reporting(E_ALL);
 require_once("../database/database.php");
 require_once("../classe/user.php");
 
-if (isset($_POST['inscription'])) {
-    // Récupérer les données du formulaire
-    $login = $_POST['login'];
-    $password = $_POST['password'];
-    $type = $_POST['type'];
-    $mail = $_POST['mail'];
 
-    // Vérifier si l'utilisateur est déjà inscrit
-    $stmt = $pdo->prepare('SELECT * FROM `User` WHERE `login` = ? OR `mail` = ?');
-    $stmt->execute([$login, $mail]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($user) {
-        // Utilisateur déjà inscrit, rediriger vers la page de connexion avec un message et pré-remplir les champs
-        $encodedLogin = urlencode($login);
-        $encodedPassword = urlencode($password);
-        header("Location: connexion.php?message=Utilisateur déjà inscrit. Veuillez vous connecter.&login=$encodedLogin&password=$encodedPassword");
-        exit();
-    } else {
-        // Insérer un nouvel utilisateur dans la base de données
-        $stmt = $pdo->prepare('INSERT INTO `User` (`login`, `password`, `type`, `mail`) VALUES (?, ?, ?, ?)');
-        $stmt->execute([$login, $password, 'demandeur', $mail]);
-
-        // Rediriger vers la page de connexion ou afficher un message de succès
-        header("Location: connexion.php?message=Inscription réussie. Veuillez vous connecter.");
-        exit();
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +44,7 @@ if (isset($_POST['inscription'])) {
                 <ul class="navbar-nav ms-auto my-2 my-lg-0">
                     <li class="nav-item"><a class="nav-link" href="../index.html">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href="../index.html#about">A propos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="connexion.php">Connexion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="inscription.php">Inscription</a></li>
                 </ul>
             </div>
         </div>
@@ -80,21 +52,11 @@ if (isset($_POST['inscription'])) {
     <!-- Masthead-->
     <header class="masthead">
         <div class="form-container">
-            <h1 class="form-title">Inscrivez-vous</h1>
+            <h1 class="form-title">Mot de passe oublié</h1>
             <form action="" method="post" class="form">
-                <input type="text" name="login" placeholder="Nom d'utilisateur" required>
-                <input type="password" name="password" placeholder="Mot de passe" required>
-                <input type="email" name="mail" placeholder="Adresse e-mail" required>
-                <input type="submit" name="inscription" value="S'inscrire">
+                <div class="form-group">
+
             </form>
-            <div class="form-separator">
-                <strong>OU</strong>
-                <hr class="separator">
-            </div>
-            <div class="signin-message">
-                <span>Déjà un compte ?</span>
-                <a href="connexion.php">Connectez-vous.</a>
-            </div>
         </div>
     </header>
 

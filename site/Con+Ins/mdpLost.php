@@ -1,5 +1,3 @@
-<!-- connexion.php -->
-
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -7,6 +5,10 @@ error_reporting(E_ALL);
 
 require_once("../database/database.php");
 require_once("../classe/user.php");
+
+$redirect = false;
+$error_message = "";
+$success_message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email1 = $_POST['email1'];
@@ -23,18 +25,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($user) {
             // Mettre à jour le mot de passe
-            //$hashedPassword = password_hash($password1, PASSWORD_DEFAULT);
+            $hashedPassword = password_hash($password1, PASSWORD_DEFAULT);
             $stmt = $pdo->prepare("UPDATE User SET password = :password WHERE mail = :email");
-            $stmt->bindParam(':password',$password1);
+            $stmt->bindParam(':password', $hashedPassword);
             $stmt->bindParam(':email', $email1);
             $stmt->execute();
-            echo "Votre mot de passe a été réinitialisé avec succès.";
+            $success_message = "Votre mot de passe a été réinitialisé avec succès.";
+            $redirect = true;
         } else {
-            echo "Aucun utilisateur trouvé avec cet e-mail.";
+            $error_message = "Aucun utilisateur trouvé avec cet e-mail.";
         }
     } else {
-        echo "Les e-mails ou les mots de passe ne correspondent pas.";
+        $error_message = "Les e-mails ou les mots de passe ne correspondent pas.";
     }
+}
+
+if ($redirect) {
+    header("refresh:5;url=connexion.php");
 }
 ?>
 
@@ -85,6 +92,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="email" name="email2" id="email2" placeholder="Confirmer Email" required>
                 <input type="password" name="password1" id="password1" placeholder="Nouveau mot de passe" required>
                 <input type="password" name="password2" id="password2" placeholder="Confirmer nouveau mot de passe" required>
+                <?php if (!empty($error_message)) { ?>
+                    <p class="error-message"><?php echo $error_message; ?></p>
+                <?php } ?>
+                <?php if (!empty($success_message)) { ?>
+                    <p class="success-message"><?php echo $success_message; ?></p>
+                <?php } ?>
                 <input type="submit" value="Réinitialiser le mot de passe">
             </form>
         </div>

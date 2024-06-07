@@ -1,4 +1,4 @@
-<!-- connexion.php -->
+<!-- MDPLOST.php -->
 
 <?php
 ini_set('display_errors', 1);
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($email1 == $email2 && $password1 == $password2) {
         // Vérifier que l'email existe dans la base de données
-        $stmt = $conn->prepare("SELECT * FROM users WHERE mail = :email");
+        $stmt = $conn->prepare("SELECT * FROM User WHERE mail = :email");
         $stmt->bindParam(':email', $email1);
         $stmt->execute();
         $user = $stmt->fetch();
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($user) {
             // Mettre à jour le mot de passe
             $hashedPassword = password_hash($password1, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("UPDATE users SET password = :password WHERE mail = :email");
+            $stmt = $conn->prepare("UPDATE User SET password = :password WHERE mail = :email");
             $stmt->bindParam(':password', $hashedPassword);
             $stmt->bindParam(':email', $email1);
             $stmt->execute();
@@ -81,12 +81,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="form-container">
             <h1 class="form-title">Mot de passe oublié</h1>
             <form action="" method="post" class="form">
-                <div class="form-group">
-                    <input type="email" name="email1" id="email1" class="form-control" placeholder="Email" required>
-                    <input type="email" name="email2" id="email2" class="form-control" placeholder="Confirmer Email" required>
-                    <input type="password" name="password1" id="password1" class="form-control" placeholder="Nouveau mot de passe" required>
-                    <input type="password" name="password2" id="password2" class="form-control" placeholder="Confirmer nouveau mot de passe" required>
-                <button type="submit" value="Réinitialiser le mot de passe<"></button>
+                    <input type="email" name="email1" id="email1"  placeholder="Email" required>
+                    <input type="email" name="email2" id="email2"  placeholder="Confirmer Email" required>
+                    <input type="password" name="password1" id="password1"  placeholder="Nouveau mot de passe" required>
+                    <input type="password" name="password2" id="password2"  placeholder="Confirmer nouveau mot de passe" required>
+                    <input type="submit" value="Réinitialiser le mot de passe">
             </form>
         </div>
     </header>

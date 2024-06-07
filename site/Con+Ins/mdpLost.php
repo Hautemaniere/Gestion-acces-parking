@@ -8,7 +8,34 @@ error_reporting(E_ALL);
 require_once("../database/database.php");
 require_once("../classe/user.php");
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email1 = $_POST['email1'];
+    $email2 = $_POST['email2'];
+    $password1 = $_POST['password1'];
+    $password2 = $_POST['password2'];
 
+    if ($email1 == $email2 && $password1 == $password2) {
+        // Vérifier que l'email existe dans la base de données
+        $stmt = $conn->prepare("SELECT * FROM users WHERE mail = :email");
+        $stmt->bindParam(':email', $email1);
+        $stmt->execute();
+        $user = $stmt->fetch();
+
+        if ($user) {
+            // Mettre à jour le mot de passe
+            $hashedPassword = password_hash($password1, PASSWORD_DEFAULT);
+            $stmt = $conn->prepare("UPDATE users SET password = :password WHERE mail = :email");
+            $stmt->bindParam(':password', $hashedPassword);
+            $stmt->bindParam(':email', $email1);
+            $stmt->execute();
+            echo "Votre mot de passe a été réinitialisé avec succès.";
+        } else {
+            echo "Aucun utilisateur trouvé avec cet e-mail.";
+        }
+    } else {
+        echo "Les e-mails ou les mots de passe ne correspondent pas.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
